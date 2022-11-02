@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 
 public interface ProductRepository {
-    List<Product> findAll();
+    List<Product> findAlllllllllllllllll();
     List<ProductType> findAllProductTypes();
     Optional<Product> findById(int id);
     Product findByName(String name);
