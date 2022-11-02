@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.product.ProductService;
 import org.springframework.samples.petclinic.user.AuthoritiesService;
 import org.springframework.samples.petclinic.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -43,12 +44,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class OwnerController {
 
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
-
+private static final String VIEW_LIST_PRODUCT = "products/productList";
 	private final OwnerService ownerService;
+	private final ProductService productService;
 
 	@Autowired
-	public OwnerController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService) {
+	public OwnerController(OwnerService ownerService, UserService userService, AuthoritiesService authoritiesService,ProductService productService) {
 		this.ownerService = ownerService;
+		this.productService = productService;
 	}
 
 	@InitBinder
@@ -77,9 +80,10 @@ public class OwnerController {
 	}
 
 	@GetMapping(value = "/owners/find")
-	public String initFindForm(Map<String, Object> model) {
-		model.put("owner", new Owner());
-		return "owners/findOwners";
+	public ModelAndView listProduct(){
+		ModelAndView mav = new ModelAndView(VIEW_LIST_PRODUCT);
+		mav.addObject("products", productService.getAllProducts());
+		return mav;
 	}
 
 	@GetMapping(value = "/owners")
