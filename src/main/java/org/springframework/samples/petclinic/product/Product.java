@@ -10,4 +10,5 @@ public class Product {
     String name;
     double price;
     ProductType productType;
+    String apellido;
 }
